@@ -20,7 +20,7 @@ export class ExcelFile {
     });
   }
 
-  public save (fileName: string): Promise<unknown> {
+  public save (fileName: string): Promise<void> {
     return new Promise((resolve, rejects) => {
       this.workbook.export(fileName).then(() => {
         resolve();

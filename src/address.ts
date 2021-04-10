@@ -42,7 +42,7 @@ export class Address {
       col = alpha[y - 1] + col;
     }
     col = alpha[x - 1] + col;
-    return col + row;
+    return col + pos.r;
   }
 
   public static address2rc (address: string): rc {

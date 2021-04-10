@@ -1,5 +1,5 @@
 import * as ExcelJS from 'exceljs';
-import { Image } from '../index';
+import { Image } from './type';
 import { Worksheet } from './worksheet';
 import { copyObject } from './copy';
 
@@ -52,7 +52,7 @@ export class Workbook {
     return newBook;
   }
 
-  public export (fileName: string): Promise<unknown> {
+  public export (fileName: string): Promise<void> {
     return new Promise((resolve, rejects) => {
       this.realWorkbook.xlsx.writeFile(fileName).then(() => {
         resolve();

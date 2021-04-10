@@ -2,9 +2,11 @@
   "name": "easy-excel",
   "version": "0.0.2-test.1",
   "description": "simple excel for typescript",
-  "main": "excel.ts",
+  "main": "./dist/index.js",
+  "type": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --outDir ./dist/"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,6 @@
   },
   "homepage": "https://github.com/CHANTXU64/easy-excel#readme",
   "dependencies": {
-    "exceljs": "^4.2.0"
+    "exceljs": "^4.2.1"
   }
 }

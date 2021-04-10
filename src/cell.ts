@@ -1,6 +1,6 @@
 import * as ExcelJS from 'exceljs';
 import { Row } from './row';
-import { CellValue } from '../index';
+import { CellValue } from './type';
 import { copyObject } from './copy';
 import { Address } from './address';
 
@@ -124,7 +124,7 @@ export class Cell {
     targetRealCell.style = copyObject(thisRealCell.style);
     targetRealCell.numFmt = thisRealCell.numFmt;
     this.copyCellMerge(targetCell);
-    if (thisRealCell.value && isObject(thisRealCell.value)) {
+    if (thisRealCell.value && typeof thisRealCell.value == 'object') {
       targetRealCell.value = copyObject(thisRealCell.value);
     } else {
       targetRealCell.value = thisRealCell.value;

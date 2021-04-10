@@ -71,7 +71,6 @@ export interface Worksheet {
 
   clone(): Worksheet;
   copy(): Worksheet;
-  paste(copyInfo: 
 }
 
 export interface Workbook {
@@ -112,3 +111,7 @@ export interface ImagePosition {
 	ext: { width: number; height: number };
 }
 
+export class ExcelFile {
+  public load (fileName: string): Promise<Workbook>;
+  public save (filename: string): Promise<void>;
+}

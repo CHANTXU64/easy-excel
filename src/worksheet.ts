@@ -1,5 +1,5 @@
 import * as ExcelJS from 'exceljs';
-import { ImagePosition } from '../index';
+import { ImagePosition } from './type';
 import { Workbook } from './workbook';
 import { Row } from './row';
 import { Cell } from './cell';
