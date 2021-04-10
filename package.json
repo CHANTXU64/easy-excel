@@ -2,7 +2,7 @@
   "name": "easy-excel",
   "version": "0.0.1",
   "description": "simple excel for typescript",
-  "main": "index.ts",
+  "main": "excel.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
