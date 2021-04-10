@@ -1,9 +1,9 @@
 import * as ExcelJS from 'exceljs';
-import { Workbook, Worksheet, Image } from './index';
-import { __Worksheet__ } from './worksheet';
+import { Image } from '../index';
+import { Worksheet } from './worksheet';
 import { copyObject } from './copy';
 
-export class __Workbook__ implements Workbook {
+export class Workbook {
   private realWorkbook: ExcelJS.Workbook;
   private worksheets: Worksheet[] = [];
 
@@ -43,16 +43,16 @@ export class __Workbook__ implements Workbook {
   }
 
   public clone (): Workbook {
-    let newBook = new __Workbook__();
+    let newBook = new Workbook();
     this.eachSheet(sourceSheet => {
-      let newSheet = newBook.addWorksheet();
-      newSheet = sourceSheet.clone();
+      let targetSheet = newBook.addWorksheet(sourceSheet.name);
+      sourceSheet.copy(targetSheet);
     });
     newBook.realWorkbook.properties = copyObject(this.realWorkbook.properties);
     return newBook;
   }
 
   private transWorksheet (realWorksheet: ExcelJS.Worksheet): Worksheet {
-    return new __Worksheet__(this, realWorksheet);
+    return new Worksheet(this, realWorksheet);
   }
 }
