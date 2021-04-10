@@ -52,6 +52,16 @@ export class Workbook {
     return newBook;
   }
 
+  public export (fileName: string): Promise<unknown> {
+    return new Promise((resolve, rejects) => {
+      this.realWorkbook.xlsx.writeFile(fileName).then(() => {
+        resolve();
+      }).catch(() => {
+        rejects();
+      });
+    });
+  }
+
   private transWorksheet (realWorksheet: ExcelJS.Worksheet): Worksheet {
     return new Worksheet(this, realWorksheet);
   }
