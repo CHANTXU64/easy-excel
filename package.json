@@ -1,6 +1,6 @@
 {
   "name": "easy-excel",
-  "version": "0.0.3-test.3",
+  "version": "0.0.4",
   "description": "simple excel for typescript",
   "main": "./index",
   "files": [
