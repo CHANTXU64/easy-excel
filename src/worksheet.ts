@@ -10,7 +10,7 @@ export class Worksheet {
   public readonly workbook: Workbook;
 
   private realWorksheet: ExcelJS.Worksheet;
-  private rows: Row[];
+  private rows: Row[] = [];
 
   constructor (workbook: Workbook, realWorksheet: ExcelJS.Worksheet) {
     this.workbook = workbook;

@@ -6,7 +6,7 @@ import {Address} from './address';
 export class Row {
   public readonly worksheet: Worksheet;
   private realRow: ExcelJS.Row;
-  private cells: Cell[];
+  private cells: Cell[] = [];
 
   constructor (worksheet: Worksheet, realRow: ExcelJS.Row) {
     this.worksheet = worksheet;

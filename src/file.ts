@@ -13,9 +13,13 @@ export class ExcelFile {
       let realWorkbook = new ExcelJS.Workbook();
       realWorkbook.xlsx.readFile(fileName).then(realWorkbook => {
         this.workbook = new Workbook(realWorkbook);
-        resolve(this.workbook);
+        if (resolve) {
+          resolve(this.workbook);
+        }
       }).catch(() => {
-        rejects();
+        if (rejects) {
+          rejects();
+        }
       });
     });
   }
@@ -23,9 +27,13 @@ export class ExcelFile {
   public save (fileName: string): Promise<void> {
     return new Promise((resolve, rejects) => {
       this.workbook.export(fileName).then(() => {
-        resolve();
+        if (resolve) {
+          resolve();
+        }
       }).catch(() => {
-        rejects();
+        if (rejects) {
+          rejects();
+        }
       });
     });
   }

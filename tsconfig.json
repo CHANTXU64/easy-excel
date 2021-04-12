@@ -7,10 +7,10 @@
     "sourceMap": false,
     "removeComments": true,
     "outDir": "dist",
-    "declaration": true
+    "declaration": false,
+    "stripInternal": false
   },
   "include": [
-    "src/**/*",
-    "*"
+    "src/**/*"
   ]
 }

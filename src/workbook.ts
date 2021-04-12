@@ -55,9 +55,13 @@ export class Workbook {
   public export (fileName: string): Promise<void> {
     return new Promise((resolve, rejects) => {
       this.realWorkbook.xlsx.writeFile(fileName).then(() => {
-        resolve();
+        if (resolve) {
+          resolve();
+        }
       }).catch(() => {
-        rejects();
+        if (rejects) {
+          rejects();
+        }
       });
     });
   }
