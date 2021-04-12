@@ -9,7 +9,7 @@ import { Address } from './address';
 export class Worksheet {
   public readonly workbook: Workbook;
 
-  private realWorksheet: ExcelJS.Worksheet;
+  private readonly realWorksheet: ExcelJS.Worksheet;
   private rows: Row[] = [];
 
   constructor (workbook: Workbook, realWorksheet: ExcelJS.Worksheet) {
@@ -41,8 +41,7 @@ export class Worksheet {
   public getRow (rowNumber: number): Row {
     if (!this.rows[rowNumber - 1]) {
       const newRealRow = this.realWorksheet.getRow(rowNumber);
-      const newRow = this.transRow(newRealRow);
-      this.rows[rowNumber - 1] = newRow;
+      this.rows[rowNumber - 1] = this.transRow(newRealRow);
     }
     return this.rows[rowNumber - 1];
   }
@@ -92,8 +91,7 @@ export class Worksheet {
   private getCellEx (address: string): Cell {
     let rowcol = Address.address2rc(address);
     let row = this.getRow(rowcol.r);
-    let cell = row.getCell(rowcol.c);
-    return cell;
+    return row.getCell(rowcol.c);
   }
 
   public getCellByName (cellName: string): Cell | undefined {

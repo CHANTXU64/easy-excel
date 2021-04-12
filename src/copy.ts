@@ -5,11 +5,9 @@ export function copyObject<T extends Object> (source_object: T): T {
     if (Object.prototype.hasOwnProperty.call(source_object, key)) {
       const source_element = source_object[key];
       if (source_element instanceof Array) {
-        let target_element = copyArray(source_element);
-        target_object[key] = target_element;
+        target_object[key] = copyArray(source_element);
       } else if (source_element instanceof Object) {
-        let target_element: typeof source_element = copyObject(source_element);
-        target_object[key] = target_element;
+        target_object[key] = copyObject(source_element);
       }
     }
   }

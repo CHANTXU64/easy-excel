@@ -6,6 +6,6 @@ export interface Image {
 }
 
 export interface ImagePosition {
-	tl: { col: number; row: number };
-	ext: { width: number; height: number };
+  tl: { col: number; row: number };
+  ext: { width: number; height: number };
 }

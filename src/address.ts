@@ -20,14 +20,6 @@ export class Address {
     targPos.c = origPos.c + relativePos.c;
     return targPos;
   }
-
-  public static calcOrigPos (targPos: rc, relativePos: rc) {
-    let origPos: rc;
-    origPos.r = targPos.r - relativePos.r;
-    origPos.c = targPos.c - relativePos.c;
-    return origPos;
-  }
-
   public static rc2address (pos: rc): string {
     let col = "";
     let colNumber = pos.c;
@@ -77,7 +69,6 @@ export class Address {
     if (!hasRow) {
       rowNumber = undefined;
     }
-    let rowcol: rc = {r: rowNumber, c: colNumber};
-    return rowcol;
+    return {r: rowNumber, c: colNumber};
   }
 }

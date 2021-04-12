@@ -1,11 +1,11 @@
 import * as ExcelJS from 'exceljs';
 import { Worksheet } from './worksheet';
 import { Cell } from './cell';
-import {Address} from './address';
+import { Address } from './address';
 
 export class Row {
   public readonly worksheet: Worksheet;
-  private realRow: ExcelJS.Row;
+  private readonly realRow: ExcelJS.Row;
   private cells: Cell[] = [];
 
   constructor (worksheet: Worksheet, realRow: ExcelJS.Row) {
@@ -55,7 +55,6 @@ export class Row {
   }
 
   private transCell (realCell: ExcelJS.Cell): Cell {
-    let cell = new Cell(this, realCell);
-    return cell;
+    return new Cell(this, realCell);
   }
 }

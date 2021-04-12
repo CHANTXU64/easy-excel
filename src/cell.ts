@@ -5,7 +5,7 @@ import { copyObject } from './copy';
 import { Address } from './address';
 
 export class Cell {
-  private realCell: ExcelJS.Cell;
+  private readonly realCell: ExcelJS.Cell;
   public readonly row: Row;
 
   constructor (row: Row, realCell: ExcelJS.Cell) {
@@ -28,8 +28,7 @@ export class Cell {
   }
 
   get value (): CellValue {
-    let value = this.getValueFromRealCell(this.realCell);
-    return value;
+    return this.getValueFromRealCell(this.realCell);
   }
 
   private getValueFromRealCell (realCell: ExcelJS.Cell): CellValue {
@@ -69,8 +68,8 @@ export class Cell {
         break;
       case ValueType.Hyperlink:
         cellValue = realCell.value;
-        let hyperLinx: ExcelJS.CellHyperlinkValue = cellValue;
-        value = hyperLinx.text;
+        let hyperLink: ExcelJS.CellHyperlinkValue = cellValue;
+        value = hyperLink.text;
         break;
       default:
         value = null;

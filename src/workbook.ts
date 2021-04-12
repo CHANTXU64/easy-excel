@@ -4,7 +4,7 @@ import { Worksheet } from './worksheet';
 import { copyObject } from './copy';
 
 export class Workbook {
-  private realWorkbook: ExcelJS.Workbook;
+  private readonly realWorkbook: ExcelJS.Workbook;
   private worksheets: Worksheet[] = [];
 
   constructor (realWorkbook: ExcelJS.Workbook = new ExcelJS.Workbook()) {
