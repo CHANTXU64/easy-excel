@@ -135,10 +135,10 @@ export class Cell {
     let thisRealCell = this.realCell;
     if (thisRealCell.isMerged && thisRealCell.model.hasOwnProperty("master")) {
       let thisMasterPos = Address.address2rc(thisRealCell.model.master);
-      let thisCellPos = Address.address2rc(thisRealCell.model.address.address);
+      let thisCellPos = Address.address2rc(thisRealCell.model.address);
       let relativePos = Address.calcRelativePos(thisCellPos, thisMasterPos);
       let targetCellPos = Address.address2rc(
-        targetRealCell.model.address.address);
+        targetRealCell.model.address);
       let targetMasterPos = Address.calcTargetPos(targetCellPos, relativePos);
       targetRealCell.model.master = Address.rc2address(targetMasterPos);
       let targetWorksheet = targetRealCell.worksheet;

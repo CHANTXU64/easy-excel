@@ -8,14 +8,14 @@ interface rc {
 
 export class Address {
   public static calcRelativePos (origPos: rc, targPos: rc) {
-    let relativePos: rc;
+    let relativePos: rc = {r: 0, c: 0};
     relativePos.r = targPos.r - origPos.r;
     relativePos.c = targPos.c - origPos.c;
     return relativePos;
   }
 
   public static calcTargetPos (origPos: rc, relativePos: rc) {
-    let targPos: rc;
+    let targPos: rc = {r: 0, c: 0};
     targPos.r = origPos.r + relativePos.r;
     targPos.c = origPos.c + relativePos.c;
     return targPos;
@@ -37,7 +37,7 @@ export class Address {
     return col + pos.r;
   }
 
-  public static address2rc (address: string): rc {
+  public static address2rc (address: any): rc {
     let hasCol = false;
     let colNumber = 0;
     let hasRow = false;

@@ -20,11 +20,21 @@ export interface Row {
   copy (targetRow: Row): void;
 }
 
+export interface Column {
+  readonly worksheet: Worksheet;
+  readonly number: number;
+  readonly cellCount: number;
+
+  getCell (rowNumber: number): Cell;
+  eachCell (callback: (cell: Cell, rowNumber: number) => void): void;
+}
+
 export type worksheetState = 'visible' | 'hidden' | 'veryHidden';
 
 export interface Worksheet {
   readonly workbook: Workbook;
   readonly rowCount: number;
+  readonly columnCount: number;
   readonly lastRow: Row | undefined;
   name: string;
   state: 'visible' | 'hidden' | 'veryHidden';
@@ -41,10 +51,14 @@ export interface Worksheet {
    */
   getRow (index: number): Row;
 
+  getColumn (colNumber: number): Column;
+
   /**
    * Iterate over all rows (including empty rows) in a worksheet
    */
   eachRow (callback: (row: Row, rowNumber: number) => void): void;
+
+  eachColumn (callback: (column: Column, colNumber: number) => void): void;
 
   /**
    * returns the cell at [r,c] or address given by r. If not found, return undefined
@@ -66,6 +80,10 @@ export interface Worksheet {
   addImage (imageId: number, range: ImagePosition): void;
 
   copy (targetSheet: Worksheet): void;
+  copyDefineNames (targetSheet: Worksheet): void;
+  copyPageProperties (targetSheet: Worksheet): void;
+  copyHeaderFooter (targetSheet: Worksheet): void;
+  copyColumnsWidth (targetSheet: Worksheet): void;
 }
 
 export interface Workbook {
@@ -109,6 +127,17 @@ export interface ImagePosition {
 }
 
 export class ExcelFile {
+  constructor (workbook?: Workbook);
   public load (fileName: string): Promise<Workbook>;
   public save (filename: string): Promise<void>;
+}
+
+export interface ExcelData {
+  [id: string]: any
+}
+
+export class utils {
+  public static openFiles (filesName: string[]): Promise<Workbook[]>;
+  public static saveFiles (workbooks: Workbook[], filesName: string[]): Promise<void>;
+  public static getData (worksheet: Worksheet): ExcelData[];
 }

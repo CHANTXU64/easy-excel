@@ -5,8 +5,8 @@ import { Address } from './address';
 
 export class Row {
   public readonly worksheet: Worksheet;
-  private readonly realRow: ExcelJS.Row;
-  private cells: Cell[] = [];
+  protected readonly realRow: ExcelJS.Row;
+  protected cells: Cell[] = [];
 
   constructor (worksheet: Worksheet, realRow: ExcelJS.Row) {
     this.worksheet = worksheet;
@@ -54,7 +54,7 @@ export class Row {
     });
   }
 
-  private transCell (realCell: ExcelJS.Cell): Cell {
+  protected transCell (realCell: ExcelJS.Cell): Cell {
     return new Cell(this, realCell);
   }
 }

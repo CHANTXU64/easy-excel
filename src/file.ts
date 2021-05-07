@@ -4,8 +4,8 @@ import * as ExcelJS from 'exceljs';
 export class ExcelFile {
   private workbook: Workbook;
 
-  constructor () {
-    this.workbook = new Workbook();
+  constructor (workbook = new Workbook) {
+    this.workbook = workbook;
   }
 
   public load (fileName: string): Promise<Workbook> {

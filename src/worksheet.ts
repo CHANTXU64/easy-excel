@@ -5,6 +5,7 @@ import { Row } from './row';
 import { Cell } from './cell';
 import { copyObject } from './copy';
 import { Address } from './address';
+import { Column } from './column';
 
 export class Worksheet {
   public readonly workbook: Workbook;
@@ -23,6 +24,10 @@ export class Worksheet {
 
   get rowCount (): number {
     return this.realWorksheet.rowCount;
+  }
+
+  get columnCount (): number {
+    return this.realWorksheet.columnCount;
   }
 
   get lastRow (): Row | undefined {
@@ -46,6 +51,10 @@ export class Worksheet {
     return this.rows[rowNumber - 1];
   }
 
+  public getColumn (colNumber: number): Column {
+    return new Column(this, colNumber);
+  }
+
   set name (newName: string) {
     this.realWorksheet.name = newName;
   }
@@ -66,6 +75,13 @@ export class Worksheet {
     const l = this.rows.length;
     for (let i = 1; i <= l; ++i) {
       callback(this.getRow(i), i);
+    }
+  }
+
+  public eachColumn (callback: (column: Column, colNumber: number) => void): void {
+    const l = this.columnCount;
+    for (let i = 1; i <= l; ++i) {
+      callback(this.getColumn(i), i);
     }
   }
 
@@ -113,14 +129,40 @@ export class Worksheet {
     this.eachRow((row, rowNumber) => {
       let targetRow = targetSheet.getRow(rowNumber);
       row.copy(targetRow);
+    });
+    this.copyDefineNames(targetSheet);
+    this.copyDefineNames(targetSheet);
+    this.copyColumnsWidth(targetSheet);
+    this.copyPageProperties(targetSheet);
+    this.copyHeaderFooter(targetSheet);
+  }
+
+  public copyDefineNames (targetSheet: Worksheet): void {
+    this.eachRow((row, rowNumber) => {
+      let targetRow = targetSheet.getRow(rowNumber);
       this.copyRowDefineNames(row, targetRow);
     });
-    this.copyColumnsWidth(targetSheet);
-    let targetRealSheet = targetSheet.realWorksheet;
-    let thisRealSheet = this.realWorksheet;
-    targetRealSheet.properties = copyObject(thisRealSheet.properties);
-    targetRealSheet.pageSetup = copyObject(thisRealSheet.pageSetup);
-    targetRealSheet.headerFooter = copyObject(thisRealSheet.headerFooter);
+  }
+
+  public copyPageProperties (targetSheet: Worksheet): void {
+    targetSheet.realWorksheet.properties = copyObject(this.realWorksheet.properties);
+    targetSheet.realWorksheet.pageSetup = copyObject(this.realWorksheet.pageSetup);
+  }
+
+  public copyHeaderFooter (targetSheet: Worksheet): void {
+    targetSheet.realWorksheet.headerFooter = copyObject(this.realWorksheet.headerFooter);
+  }
+
+  public copyColumnsWidth (targetSheet: Worksheet): void {
+    let sourceColumns = this.realWorksheet.columns;
+    if (sourceColumns != null) {
+      let targetRealSheet = targetSheet.realWorksheet;
+      sourceColumns.forEach((column, index) => {
+        if (column.isCustomWidth) {
+          targetRealSheet.getColumn(index + 1).width = column.width;
+        }
+      });
+    }
   }
 
   private copyRowDefineNames (sourceRow: Row, targetRow: Row): void {
@@ -129,16 +171,6 @@ export class Worksheet {
       if (cellNames) {
         let targetCell = targetRow.getCell(colNumber);
         cellNames.forEach(name => targetCell.addName(name));
-      }
-    });
-  }
-
-  private copyColumnsWidth (targetSheet: Worksheet): void {
-    let sourceColumns = this.realWorksheet.columns;
-    let targetColumns = targetSheet.realWorksheet.columns;
-    sourceColumns.forEach((column, index) => {
-      if (column.isCustomWidth) {
-        targetColumns[index].width = column.width;
       }
     });
   }
