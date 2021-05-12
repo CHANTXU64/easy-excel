@@ -40,6 +40,7 @@ export interface Worksheet {
   readonly lastRow: Row | undefined;
   name: string;
   state: 'visible' | 'hidden' | 'veryHidden';
+  printArea: string;
 
   /**
    * Tries to find and return row for row no, else undefined

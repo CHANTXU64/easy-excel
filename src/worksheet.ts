@@ -67,6 +67,14 @@ export class Worksheet {
     this.realWorksheet.state = newState;
   }
 
+  get printArea (): string {
+    return this.realWorksheet.pageSetup.printArea;
+  }
+
+  set printArea (area: string) {
+    this.realWorksheet.pageSetup.printArea = area;
+  }
+
   get state (): 'visible' | 'hidden' | 'veryHidden' {
     return this.realWorksheet.state;
   }
