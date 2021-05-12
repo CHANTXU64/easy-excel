@@ -6,6 +6,8 @@ export interface Cell {
   value: CellValue;
   note: string;
   addName (name: string): string[];
+  addRightThinBorder (): void;
+  addRightMediumBorder (): void;
   copy (targetCell: Cell): void;
 }
 
@@ -87,6 +89,9 @@ export interface Worksheet {
 }
 
 export interface Workbook {
+  date1904: boolean;
+  fullCalcOnLoad: boolean;
+
   /**
    * Add a new worksheet and return a reference to it
    */
@@ -140,4 +145,5 @@ export class utils {
   public static openFiles (filesName: string[]): Promise<Workbook[]>;
   public static saveFiles (workbooks: Workbook[], filesName: string[]): Promise<void>;
   public static getData (worksheet: Worksheet): ExcelData[];
+  public static transToDate (date1904: boolean, dateNum: number): Date;
 }

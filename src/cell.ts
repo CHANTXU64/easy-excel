@@ -97,7 +97,7 @@ export class Cell {
     let formula: ExcelJS.CellFormulaValue;
     formula_str = formula_str.replace(/）/g, "__rpc__")
                              .replace(/（/g, "__lpc__");
-    let date1904 = this.realCell.workbook.properties.date1904;
+    let date1904 = this.row.worksheet.workbook.date1904;
     formula = {formula: formula_str, date1904: date1904};
     this.realCell.value = formula;
   }
@@ -115,6 +115,16 @@ export class Cell {
       note = origNote;
     }
     return note;
+  }
+
+  public addRightThinBorder () {
+    this.realCell.border = Object.assign(this.realCell.border,
+                                         {right: {style: 'thin', color: {argb: 'FF000000'}}});
+  }
+
+  public addRightMediumBorder () {
+    this.realCell.border = Object.assign(this.realCell.border,
+                                         {right: {style: 'medium', color: {argb: 'FF000000'}}});
   }
 
   public copy (targetCell: Cell): void {

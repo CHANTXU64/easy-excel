@@ -29,7 +29,7 @@ export class utils {
       let data: ExcelData[] = [];
       worksheet.eachRow((row, rowNumber) => {
         if (rowNumber != 1 && String(row.getCell(1).value) == ".data") {
-          data.push(this.getOneData(head, row));
+          data.push(this.getOneData(head, row, worksheet.workbook.date1904));
         }
       });
       return data;
@@ -38,12 +38,28 @@ export class utils {
       let data: ExcelData[] = [];
       worksheet.eachColumn((column, colNumber) => {
         if (colNumber != 1 && String(column.getCell(1).value) == ".data") {
-          data.push(this.getOneData(head, column));
+          data.push(this.getOneData(head, column, worksheet.workbook.date1904));
         }
       })
       return data;
     } else {
       return [];
+    }
+  }
+
+  public static transToDate (date1904: boolean, dateNum: number): Date {
+    dateNum = Math.round(dateNum);
+    if (!date1904) {
+      if (dateNum > 59) {
+        dateNum = dateNum - 1; /* excel 遗留问题1900-2-29 */
+      }
+      let date = new Date("1900-1-1");
+      date.setDate(dateNum);
+      return date;
+    } else {
+      let date = new Date("1904-1-1");
+      date.setDate(dateNum + 1);
+      return date;
     }
   }
 
@@ -103,7 +119,8 @@ export class utils {
     return {key: headKey, type: type};
   }
 
-  private static getOneData (head: ohead[], group: Row | Column): {[id: string]: any} {
+  private static getOneData (head: ohead[], group: Row | Column,
+                             date1904: boolean): {[id: string]: any} {
     let oData: {[id: string]: any} = {};
     head.forEach((oHead, index) => {
       const key = oHead.key;
@@ -111,7 +128,11 @@ export class utils {
       if (oHead.type == "number") {
         value = Number(value);
       } else if (oHead.type == "Date") {
-        value = new Date(String(value));
+        if (typeof(value) == "number") {
+          value = this.transToDate(date1904, value);
+        } else {
+          value = new Date(String(value));
+        }
       } else if (oHead.type == "boolean") {
         value = Boolean(value);
       } else {

@@ -15,6 +15,22 @@ export class Workbook {
     });
   }
 
+  get date1904 (): boolean {
+    return this.realWorkbook.properties.date1904;
+  }
+
+  set date1904 (bool: boolean) {
+    this.realWorkbook.properties.date1904 = bool;
+  }
+
+  get fullCalcOnLoad (): boolean {
+    return this.realWorkbook.calcProperties.fullCalcOnLoad;
+  }
+
+  set fullCalcOnLoad (bool: boolean) {
+    this.realWorkbook.calcProperties.fullCalcOnLoad = bool;
+  }
+
   public addWorksheet (name?: string): Worksheet {
     const realWorksheet = this.realWorkbook.addWorksheet(name);
     const worksheet = this.transWorksheet(realWorksheet);
