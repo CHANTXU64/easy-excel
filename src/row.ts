@@ -16,6 +16,14 @@ export class Row {
     });
   }
 
+  get height (): number {
+    return this.realRow.height;
+  }
+
+  set height (newHeight: number) {
+    this.realRow.height = newHeight;
+  }
+
   get number (): number {
     return this.realRow.number;
   }

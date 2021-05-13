@@ -15,6 +15,7 @@ export interface Row {
   readonly worksheet: Worksheet;
   readonly number: number;
   readonly cellCount: number;
+  height: number;
 
   getCell (col: number | string): Cell;
   eachCell (callback: (cell: Cell, colNumber: number) => void): void;
