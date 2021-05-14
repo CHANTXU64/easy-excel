@@ -63,6 +63,31 @@ export class utils {
     }
   }
 
+  public static getSumFormula (colNum: number, rowNumbers: number[]): string {
+    if (rowNumbers.length == 0) {
+      return "=0";
+    }
+    const alpha = [ 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+      'P','Q','R','S','T','U','V','W','X','Y','Z' ];
+    let col = "";
+    let x = colNum;
+    let y = 0;
+    while (x > 26) {
+      y = x % 26;
+      x = Math.floor(x / 26);
+      col = alpha[y - 1] + col;
+    }
+    col = alpha[x - 1] + col;
+    let sum = "=SUM(" + col + rowNumbers[0] + ":";
+    for (let i = 1; i < rowNumbers.length; ++i) {
+      if (rowNumbers[i] - rowNumbers[i - 1] != 1) {
+        sum += col + rowNumbers[i - 1] + "," + col + rowNumbers[i] + ":";
+      }
+    }
+    sum += col + rowNumbers[rowNumbers.length - 1] + ")";
+    return sum;
+  }
+
   private static open1file (filesName: string[], index: number, workbooks: Workbook[]): any {
     if (index == filesName.length) {
       return Promise.resolve(workbooks);

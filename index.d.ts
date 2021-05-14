@@ -148,4 +148,5 @@ export class utils {
   public static saveFiles (workbooks: Workbook[], filesName: string[]): Promise<void>;
   public static getData (worksheet: Worksheet): ExcelData[];
   public static transToDate (date1904: boolean, dateNum: number): Date;
+  public static getSumFormula (colNum: number, rowNumbers: number[]): string;
 }
