@@ -68,7 +68,7 @@ export class utils {
 
   public static getSumFormula (colNum: number, rowNumbers: number[]): string {
     if (rowNumbers.length == 0) {
-      return "=0";
+      return "0";
     }
     const alpha = [ 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
       'P','Q','R','S','T','U','V','W','X','Y','Z' ];
@@ -81,7 +81,7 @@ export class utils {
       col = alpha[y - 1] + col;
     }
     col = alpha[x - 1] + col;
-    let sum = "=SUM(" + col + rowNumbers[0] + ":";
+    let sum = "SUM(" + col + rowNumbers[0] + ":";
     for (let i = 1; i < rowNumbers.length; ++i) {
       if (rowNumbers[i] - rowNumbers[i - 1] != 1) {
         sum += col + rowNumbers[i - 1] + "," + col + rowNumbers[i] + ":";
