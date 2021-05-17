@@ -23,6 +23,9 @@ export class utils {
   }
 
   public static getData (worksheet: Worksheet): ExcelData[] {
+    if (!worksheet) {
+      return [];
+    }
     let flag = String(worksheet.getCell(1, 1).value);
     if (flag == "ROW") {
       let head = this.getHead(worksheet.getRow(1));
