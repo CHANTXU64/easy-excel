@@ -118,12 +118,12 @@ export class Cell {
   }
 
   public addRightThinBorder () {
-    this.realCell.border = Object.assign(this.realCell.border,
+    this.realCell.border = Object.assign(this.realCell.border ? this.realCell.border : {},
                                          {right: {style: 'thin', color: {argb: 'FF000000'}}});
   }
 
   public addRightMediumBorder () {
-    this.realCell.border = Object.assign(this.realCell.border,
+    this.realCell.border = Object.assign(this.realCell.border ? this.realCell.border : {},
                                          {right: {style: 'medium', color: {argb: 'FF000000'}}});
   }
 
